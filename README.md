@@ -1,23 +1,17 @@
 # QNTX Reduce Plugin
 
-Dimensionality reduction plugin for projecting 384-dim embeddings to 2D coordinates via UMAP. Enables cluster visualization on the canvas (see [docs/vision/clusters.md](../docs/vision/clusters.md)).
+Dimensionality reduction plugin for projecting 384-dim embeddings to 2D coordinates via UMAP. Enables cluster visualization on the canvas (see [clusters](https://github.com/teranos/QNTX/blob/main/docs/vision/clusters.md)).
 
 ## Why a Separate Plugin
 
 The Rust UMAP ecosystem is immature. Python's `umap-learn` is battle-tested and fast. This plugin embeds Python via PyO3 in a separate process — same pattern as `qntx-python` — so the UMAP model stays in Python process memory for fast `.transform()` on new points.
-
-The `DimensionReducer` trait in `ats/embeddings/src/reduce.rs` defines the contract so a native Rust backend can replace this when the ecosystem matures.
 
 ## Building
 
 Requires Nix (provides Python 3.13 + umap-learn + numpy + scikit-learn deterministically).
 
 ```bash
-# Build binary
-make rust-reduce
-
-# Install to ~/.qntx/plugins/
-make rust-reduce-install
+nix build
 ```
 
 ## Usage
@@ -129,7 +123,7 @@ Go server
 
 ## Database
 
-Migration `032_add_projection_columns_to_embeddings.sql` adds:
+QNTX's migration `032_optional_add_projection_columns_to_embeddings.sql` adds:
 
 ```sql
 ALTER TABLE embeddings ADD COLUMN projection_x REAL;
