@@ -34,10 +34,28 @@
         "type": "github"
       }
     },
+    "qntx": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792433771,
+        "narHash": "sha256-ckZaF6Y2ozUCKB+DPgEwrXxMI8tv4cjIua5a6BAyra4=",
+        "owner": "teranos",
+        "repo": "QNTX",
+        "rev": "c15c7f69b3b0d5a03b8e39b0c4e8fe5bf94fc2b1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "teranos",
+        "ref": "v0.44.0",
+        "repo": "QNTX",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "qntx": "qntx"
       }
     },
     "systems": {

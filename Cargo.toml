@@ -1,6 +1,30 @@
+[workspace]
+
+[workspace.package]
+edition = "2021"
+license = "MIT"
+
+# The lint wall of teranos/QNTX's Cargo.toml ([workspace.lints]), kept by a
+# plugin that left that workspace.
+[workspace.lints.rust]
+unsafe_op_in_unsafe_fn = "deny"
+unused_must_use = "deny"
+
+[workspace.lints.clippy]
+unwrap_used = "deny"
+expect_used = "deny"
+let_underscore_must_use = "deny"
+map_err_ignore = "deny"
+unwrap_in_result = "deny"
+panic = "deny"
+todo = "deny"
+unimplemented = "deny"
+indexing_slicing = "deny"
+string_slice = "deny"
+
 [package]
 name = "qntx-reduce-plugin"
-version = "0.3.8"
+version = "0.3.9"
 edition.workspace = true
 description = "QNTX gRPC plugin for dimensionality reduction (UMAP, t-SNE, PCA)"
 license.workspace = true
@@ -14,30 +38,30 @@ name = "qntx-reduce-plugin"
 path = "src/main.rs"
 
 [dependencies]
-# QNTX gRPC infrastructure
-qntx-grpc = { workspace = true, features = ["plugin"] }
+# QNTX gRPC infrastructure: not on crates.io, so pinned to QNTX's tag.
+qntx-grpc = { git = "https://github.com/teranos/QNTX", tag = "v0.44.0", features = ["plugin"] }
 
 # gRPC and async
-tonic.workspace = true
-prost.workspace = true
-tokio.workspace = true
-tokio-stream.workspace = true
+tonic = "0.12"
+prost = "0.13"
+tokio = { version = "1", features = ["full"] }
+tokio-stream = "0.1"
 
 # Python embedding via PyO3
 # REQUIRES Nix build (flake.nix) - provides Python + umap-learn
 pyo3 = { version = "0.24", features = ["auto-initialize"] }
 
 # Serialization
-serde.workspace = true
-serde_json.workspace = true
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
 
 # Logging
-tracing.workspace = true
-tracing-subscriber.workspace = true
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 
 # CLI
 clap = { version = "4", features = ["derive"] }
 
 # Utilities
-thiserror.workspace = true
-parking_lot.workspace = true
+thiserror = "2"
+parking_lot = "0.12"

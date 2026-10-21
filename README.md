@@ -1,6 +1,6 @@
 # QNTX Reduce Plugin
 
-Dimensionality reduction plugin for projecting 384-dim embeddings to 2D coordinates via UMAP. Enables cluster visualization on the canvas (see [docs/vision/clusters.md](../../docs/vision/clusters.md)).
+Dimensionality reduction plugin for projecting 384-dim embeddings to 2D coordinates via UMAP. Enables cluster visualization on the canvas (see [clusters](https://github.com/teranos/QNTX/blob/main/docs/vision/clusters.md)).
 
 ## Why a Separate Plugin
 
@@ -12,26 +12,17 @@ The `DimensionReducer` trait in `ats/embeddings/src/reduce.rs` defines the contr
 
 Requires Nix (provides Python 3.13 + umap-learn + numpy + scikit-learn deterministically).
 
-```bash
-# Build binary
-make rust-reduce
+QNTX's crates (`qntx-grpc`, `qntx-proto`) are a git dependency on [teranos/QNTX](https://github.com/teranos/QNTX) pinned to a tag in `Cargo.toml`; `Cargo.lock` holds the rev. The flake takes QNTX as its `qntx` input at the same tag, and refuses to build when that input's rev is not the one `Cargo.lock` pins.
 
-# Install to ~/.qntx/plugins/
-make rust-reduce-install
+```bash
+nix build    # result/bin/qntx-reduce-plugin
 ```
 
 ## Usage
 
 ### With QNTX
 
-Add to `am.toml`:
-
-```toml
-[plugin]
-enabled = ["reduce"]
-```
-
-Then `make dev` — the plugin is discovered and started automatically.
+The plugin is added, configured and enabled through its record on the node: [ADR-002](https://github.com/teranos/QNTX/blob/main/docs/adr/ADR-002-plugin-configuration.md).
 
 ### Standalone
 
